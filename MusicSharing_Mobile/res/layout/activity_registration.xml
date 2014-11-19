@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <!--
+         <com.jainbooks.utils.JainTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/layout_padding_medium"
+        android:layout_marginTop="@dimen/layout_padding_small"
+        android:padding="@dimen/layout_padding_medium"
+        android:shadowColor="@color/light_gray_divider"
+        android:shadowRadius="2"
+        android:text="Register to JainBooks"
+        android:textColor="@color/black"
+        android:textSize="@dimen/layout_padding_large"
+        android:textStyle="bold" />
+        -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_padding_medium"
+            android:layout_marginRight="@dimen/layout_padding_medium"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/container_with_shadow"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/layout_padding_small" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center" >
+
+                <EditText
+                    android:id="@+id/countryCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/layout_padding_small"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:padding="0dp"
+                    android:text="+"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/header_text_font_size" />
+
+                <EditText
+                    android:id="@+id/etMobileNumber"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:drawableRight="@drawable/ic_check"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:padding="@dimen/layout_padding_medium"
+                    android:textColor="@color/text_blue"
+                    android:textSize="@dimen/header_text_font_size" >
+                </EditText>
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@android:drawable/checkbox_on_background" />
+            </LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/operator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:background="@color/dialog_button_background"
+                android:gravity="left" >
+
+                <RadioButton
+                    android:id="@+id/rdAirtel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:checked="true"
+                    android:text="Airtel"
+                    android:textColor="@color/text_blue" />
+
+                <RadioButton
+                    android:id="@+id/rdIdea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="Idea"
+                    android:textColor="@color/text_blue" />
+
+                <RadioButton
+                    android:id="@+id/rdVodaphone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="Vodaphone"
+                    android:textColor="@color/text_blue" />
+
+                <RadioButton
+                    android:id="@+id/rdAircel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="Aircel"
+                    android:textColor="@color/text_blue" />
+
+                <RadioButton
+                    android:id="@+id/rdOther"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="Other"
+                    android:textColor="@color/text_blue" />
+            </RadioGroup>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="@dimen/layout_padding_small"
+                android:background="@android:color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/app_bg"
+                android:padding="@dimen/layout_padding_small"
+                android:shadowColor="@color/light_gray_divider"
+                android:shadowRadius="2"
+                android:text="Enter Code"
+                android:textColor="@color/text_normal"
+                android:textSize="@dimen/mediume_text_font_size"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/etCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="@dimen/layout_padding_medium"
+                android:textColor="@color/text_blue"
+                android:textSize="@dimen/header_text_font_size" >
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/profileContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_padding_medium"
+            android:layout_marginRight="@dimen/layout_padding_medium"
+            android:background="@drawable/container_with_shadow"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/app_bg"
+                android:padding="@dimen/layout_padding_small"
+                android:shadowColor="@color/light_gray_divider"
+                android:shadowRadius="2"
+                android:text="Profile Name"
+                android:textColor="@color/text_normal"
+                android:textSize="@dimen/mediume_text_font_size"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/etProfileName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:lines="1"
+                android:maxLines="1"
+                android:padding="@dimen/layout_padding_medium"
+                android:scrollHorizontally="true"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/header_text_font_size" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/app_bg"
+                android:padding="@dimen/layout_padding_small"
+                android:shadowColor="@color/light_gray_divider"
+                android:shadowRadius="2"
+                android:text="Enter Password"
+                android:textColor="@color/text_normal"
+                android:textSize="@dimen/mediume_text_font_size"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/etPassword1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:lines="1"
+                android:maxLines="1"
+                android:padding="@dimen/layout_padding_medium"
+                android:scrollHorizontally="true"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/header_text_font_size" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/app_bg"
+                android:padding="@dimen/layout_padding_small"
+                android:shadowColor="@color/light_gray_divider"
+                android:shadowRadius="2"
+                android:text="Re-enter Password"
+                android:textColor="@color/text_normal"
+                android:textSize="@dimen/mediume_text_font_size"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/etPassword2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:lines="1"
+                android:maxLines="1"
+                android:padding="@dimen/layout_padding_medium"
+                android:scrollHorizontally="true"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/header_text_font_size" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/black" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/app_bg" />
+
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/layout_padding_medium"
+                android:layout_marginLeft="@dimen/layout_padding_medium"
+                android:layout_marginRight="@dimen/layout_padding_medium"
+                android:layout_marginTop="@dimen/layout_padding_medium"
+                android:background="@drawable/buttonselector_myaccount"
+                android:paddingLeft="@dimen/layout_padding_small"
+                android:paddingRight="@dimen/layout_padding_small"
+                android:text="Submit"
+                android:textColor="@color/white"
+                android:textSize="@dimen/normal_text_font_size" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

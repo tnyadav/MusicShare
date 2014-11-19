@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  
+    <dimen name="header_text_font_size">17sp</dimen>
+    
+     <dimen name="layout_padding_large">20dp</dimen>
+    <dimen name="layout_padding_medium">10dp</dimen>
+    <dimen name="layout_padding_small">5dp</dimen>
+    
+    <dimen name="imageview_unread_msg_dimen">22dp</dimen>
+   
+   
+    <!-- font size -->
+    <dimen name="normel_text_size_list_item">18dp</dimen>
+    
+    <dimen name="large_text_font_size">20dp</dimen>
+    <dimen name="normal_text_font_size">16dp</dimen>
+    <dimen name="mediume_text_font_size">14dp</dimen>
+    <dimen name="small_text_font_size">12dp</dimen>
+
+<!-- color chooser -->
+    <dimen name="ambilwarna_hsvHeight">240dp</dimen>
+	<dimen name="ambilwarna_hsvWidth">240dp</dimen>
+	<dimen name="ambilwarna_hueWidth">30dp</dimen>
+	<dimen name="ambilwarna_spacer">8dp</dimen>
+</resources>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="canvas">#404040</color>
+	<color name="toolbar">#C0000000</color>
+	<color name="page_indicator">#C0202020</color>
+	<color name="busy_indicator">#C0202020</color>
+	<color name="button_normal">#00000000</color>
+	<color name="button_pressed">#FF2572AC</color>
+	<color name="text_pressed">#FFFFFF</color>
+	<color name="text_border_normal">#000000</color>
+	<color name="text_border_pressed">#2572AC</color>
+	<color name="text_border_focused">#000000</color>
+	<color name="seek_thumb">#2572AC</color>
+	<color name="seek_progress">#FFFFFF</color>
+	
+	<color name="header_gray">#888888</color>
+    <color name="header_underline">#444C4F</color>
+    <color name="app_bg">#ffffff</color>
+    <color name="text_blue">#0A6FB3</color>
+    <color name="text_gray">#878787</color>
+    <color name="light_gray_divider">#D8D8D8</color>
+    <color name="text_normal">#555555</color>
+    <color name="alpha_blue">#330A6FB3</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="dialog_button_background">#ede6e6</color>
+     <color name="dialog_button_background_disable">#8e8787</color>
+	<color name="app_background">#E5E5E5</color>
+	  <color name="transparent">#00000000</color>
+	  
+	   <color name="orange">#F9C330</color>
+     <color name="orange_light">#FFDE85</color>
+     <color name="jain_book_store">#3F5CA9</color>
+     <color name="jain_book_store_dim">#6A7BED</color>
+     <color name="my_library">#CE5043</color>
+     <color name="my_library_dim">#CE6F67</color>
+     <color name="my_account">#B3C833</color>
+     <color name="my_account_dim">#CCDD5F</color>
+     <color name="menu_others">#658092</color>
+     <color name="menu_others_dim">#7793A5</color>
+	
+     
+     
+     
+</resources>

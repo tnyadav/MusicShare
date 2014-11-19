@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/add"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:padding="@dimen/layout_padding_small"
+        android:layout_margin="@dimen/layout_padding_small"
+        android:layout_gravity="right"
+        android:textSize="@dimen/small_text_font_size"
+        android:textColor="@color/white"
+        android:background="@drawable/buttonselector_myaccount"
+        android:text="Add" />
+
+   
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <com.musicsharing.view.StickyListHeadersListView
+            android:id="@+id/stickyListViewSpeakersMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="start"
+            android:background="@android:color/white"
+            android:choiceMode="singleChoice"
+            android:divider="@color/light_gray_divider"
+            android:dividerHeight="0.5dp"
+            android:focusable="false"
+            android:listSelector="@android:color/transparent"
+            android:scrollbars="none" />
+
+        <com.musicsharing.view.Sidebar
+            android:id="@+id/sideBar"
+            android:layout_width="30dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:background="#808080" />
+
+        <TextView
+            android:id="@+id/indexScroller"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/round_cornered_search"
+            android:gravity="center"
+            android:textColor="@color/orange"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</LinearLayout>
