@@ -1,4 +1,4 @@
-package com.musicsharing.newconnection;
+package com.musicsharing.connections;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -7,6 +7,7 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,8 +25,7 @@ import android.widget.SearchView;
 import com.example.musicsharing.R;
 import com.google.gson.Gson;
 import com.musicsharing.account.UserUtil;
-import com.musicsharing.connections.ConnectionList;
-import com.musicsharing.connections.Connections;
+import com.musicsharing.dashboard.BaseActivity;
 import com.musicsharing.dashboard.BaseFragment;
 import com.musicsharing.utils.NotificationUtils;
 import com.musicsharing.utils.SharedPreferencesUtil;
@@ -34,39 +34,28 @@ import com.musicsharing.web.TAPOSTWebServiceAsyncTask;
 import com.musicsharing.web.TAWebServiceAsyncTask;
 import com.musicsharing.web.WebServiceConstants;
 
-public final class NewConnectionFragment extends BaseFragment {
+public final class NewConnectionActivity extends BaseActivity {
     private static final String CONNECTION_LIST = "connection";
     private ListView listConnection;
     private SearchView searchView;
-    private Button pending;
-    private NewConnectionFragmentAdapter newConnectionFragmentAdapter;
+    private NewConnectionActivitytAdapter newConnectionActivityAdapter;
     List<Connections> friendList;
     List<Connections> PendingFriendList;
 
-    public static NewConnectionFragment newInstance(String content) {
-        NewConnectionFragment fragment = new NewConnectionFragment();
+@Override
+@SuppressLint("NewApi")
+protected void onCreate(Bundle savedInstanceState) {
+	// TODO Auto-generated method stub
+	super.onCreate(savedInstanceState);
+	setContentView(R.layout.fragment_newconnections);
+	setupUiComponent();
+}
 
-        return fragment;
-    }
 
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-       
-          view=inflater.inflate(R.layout.fragment_newconnections, null);
-        return view;
-    }
-
-  
-    @Override
-    public void onActivityCreated( Bundle savedInstanceState) {
-        setupUiComponent();
-    	super.onActivityCreated(savedInstanceState);
-    }
     @Override
     protected void setupUiComponent() {
-    	searchView=(SearchView)view.findViewById(R.id.searchView);
-    	listConnection=(ListView)view.findViewById(R.id.listConnection);
+    	searchView=(SearchView)findViewById(R.id.searchView);
+    	listConnection=(ListView)findViewById(R.id.listConnection);
     	listConnection.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -83,16 +72,16 @@ public final class NewConnectionFragment extends BaseFragment {
     
     private void getConnection(boolean showProgress,String loadingMessage) {
     	
-    	String userId=UserUtil.getUserId(dashboardActivity);
+    	String userId=UserUtil.getUserId(activity);
     	if (userId==null) {
 			return;
 		}
-		new TAWebServiceAsyncTask(dashboardActivity, new TAListener() {
+		new TAWebServiceAsyncTask(activity, new TAListener() {
 			
 			@Override
 			public void onTaskFailed(String errorMessage) {
 				
-				NotificationUtils.showNotificationToast(dashboardActivity, errorMessage);		
+				NotificationUtils.showNotificationToast(activity, errorMessage);		
 				}
 			
 			@Override
@@ -100,8 +89,8 @@ public final class NewConnectionFragment extends BaseFragment {
 				
 				ConnectionList connectionList=new Gson().fromJson(result, ConnectionList.class);
 				//filterFriends(connectionList.getUserDTO());
-				NewConnectionFragmentAdapter.connectionList=connectionList.getUserDTO();
-				NewConnectionFragmentAdapter newConnectionFragmentAdapter=new NewConnectionFragmentAdapter(dashboardActivity);
+				NewConnectionActivitytAdapter.connectionList=connectionList.getUserDTO();
+				NewConnectionActivitytAdapter newConnectionFragmentAdapter=new NewConnectionActivitytAdapter(activity);
 		    	listConnection.setAdapter(newConnectionFragmentAdapter);
 		    	newConnectionFragmentAdapter.notifyDataSetChanged();
 			}

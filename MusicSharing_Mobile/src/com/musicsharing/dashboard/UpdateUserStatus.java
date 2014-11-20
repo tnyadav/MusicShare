@@ -3,6 +3,7 @@ package com.musicsharing.dashboard;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 import android.app.Activity;
@@ -69,5 +70,21 @@ public class UpdateUserStatus {
 			}
 		});
 
+	}
+	
+	public static String getFriendName(String userId)
+	{
+		String userName=null;
+		Iterator<Connections> iterator=friendList.iterator();
+		while (iterator.hasNext()) {
+			Connections connections=iterator.next();
+			if (connections.getUserId().equals(userId)) {
+				userName=connections.getName();
+				break;
+			}
+			
+		}
+		return userName;
+		
 	}
 }

@@ -1,4 +1,4 @@
-package com.musicsharing.medialibray;
+package com.musicsharing.FriemdSavedMediaLibrary;
 
 import java.util.List;
 
@@ -8,22 +8,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.example.musicsharing.R;
+import com.musicsharing.connections.FriendLibrarySong;
 import com.musicsharing.view.StickyListHeadersAdapter;
 
-public class LibraryFragmentAdapter extends BaseAdapter implements
+public class FriendSavedMediaListActivityAdapter extends BaseAdapter implements
 		StickyListHeadersAdapter, SectionIndexer {
 	private Activity mActivity;
 	private LayoutInflater inflater;
 	private String mSections = "#ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	List<AudioFile>  musicList;
+	List<String>  musicList;
 
-	public LibraryFragmentAdapter(Activity argActivity, List<AudioFile> au) {
+	public FriendSavedMediaListActivityAdapter(Activity argActivity, List<String> au) {
 		 mActivity = argActivity;
 		inflater = (LayoutInflater) mActivity
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -61,7 +61,7 @@ public class LibraryFragmentAdapter extends BaseAdapter implements
 		System.gc();
     convertView = inflater.inflate(R.layout.item_media, parent, false);
     TextView tv = (TextView)convertView.findViewById(R.id.tvMedia);
-    tv.setText(musicList.get(position).getDiaplayName());
+    tv.setText(musicList.get(position));
     return convertView;
 	}
 
@@ -80,7 +80,7 @@ public class LibraryFragmentAdapter extends BaseAdapter implements
 		try {
 //			String[] lhsname = speakersMainData.getSpeakers().get(position)
 //					.getName().split(" ");
-			String lhslast = musicList.get(position).getDiaplayName();
+			String lhslast = musicList.get(position);
 					
 			textViewDrawerHeader.setText(""
 					+ lhslast.charAt(0));
@@ -101,7 +101,7 @@ public class LibraryFragmentAdapter extends BaseAdapter implements
 		try {
 //			String[] lhsname = speakersMainData.getSpeakers().get(position)
 //					.getName().split(" ");
-			String lhslast =  musicList.get(position).getDiaplayName();
+			String lhslast =  musicList.get(position);
 			return lhslast.charAt(0);
 		} catch (IndexOutOfBoundsException e) {
 			return 0;
@@ -116,7 +116,7 @@ public class LibraryFragmentAdapter extends BaseAdapter implements
 		for (int i = 0; i < musicList.size(); i++) {
 //			String[] lhsname = speakersMainData.getSpeakers().get(i)
 //					.getName().split(" ");
-			String lhslast = musicList.get(arg0).getDiaplayName();
+			String lhslast = musicList.get(arg0);
 				
 			char firstChar = lhslast.toUpperCase().charAt(0);
 			if (firstChar == arg0) {

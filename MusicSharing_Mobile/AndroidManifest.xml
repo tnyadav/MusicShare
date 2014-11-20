@@ -35,8 +35,11 @@
         <activity android:name="com.musicsharing.account.VerificationActivity" android:theme="@style/Theme.Example" >
         </activity>
         <activity android:name="com.musicsharing.connections.PendingConnectionActivity" android:theme="@style/Theme.Example"></activity>
-        <activity android:name="com.musicsharing.medialibray.AddMusicToLibraryActivity" android:theme="@style/Theme.Example"></activity>
+        <activity android:name="com.musicsharing.MyMedialibray.AddMusicToLibraryActivity" android:theme="@style/Theme.Example"></activity>
         <activity android:name="com.musicsharing.connections.FriendLibraryActivity" android:theme="@style/Theme.Example"></activity>
+        <activity android:name="com.musicsharing.connections.NewConnectionActivity" android:theme="@style/Theme.Example"></activity>
+        <activity android:name="com.musicsharing.FriemdSavedMediaLibrary.FriendSavedMediaListActivity" android:theme="@style/Theme.Example"></activity>
+        <activity android:name="com.musicsharing.FriemdSavedMediaLibrary.AudioPlayer" android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"></activity>
     </application>
 
 </manifest>

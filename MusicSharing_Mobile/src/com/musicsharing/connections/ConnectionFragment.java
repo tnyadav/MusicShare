@@ -15,9 +15,9 @@ import android.widget.AdapterView;
 import android.widget.Button;
 
 import com.example.musicsharing.R;
+import com.musicsharing.MyMedialibray.AddMusicToLibraryActivity;
 import com.musicsharing.dashboard.StickyListHeadersListViewBaseFragment;
 import com.musicsharing.dashboard.UpdateUserStatus;
-import com.musicsharing.medialibray.AddMusicToLibraryActivity;
 import com.musicsharing.utils.NotificationUtils;
 
 public class ConnectionFragment extends StickyListHeadersListViewBaseFragment {
@@ -79,6 +79,16 @@ public class ConnectionFragment extends StickyListHeadersListViewBaseFragment {
 			public void onClick(View arg0) {
 				dashboardActivity.startActivity(new Intent(dashboardActivity,
 						PendingConnectionActivity.class));
+
+			}
+		});
+		Button getAll = (Button) view.findViewById(R.id.getAll);
+		getAll.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				dashboardActivity.startActivity(new Intent(dashboardActivity,
+						NewConnectionActivity.class));
 
 			}
 		});

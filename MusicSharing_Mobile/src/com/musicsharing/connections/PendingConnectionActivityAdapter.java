@@ -21,7 +21,6 @@ import com.example.musicsharing.R;
 import com.google.gson.Gson;
 import com.musicsharing.account.Login;
 import com.musicsharing.account.UserUtil;
-import com.musicsharing.newconnection.NewConnectionFragmentAdapter;
 import com.musicsharing.utils.NotificationUtils;
 import com.musicsharing.web.TAListener;
 import com.musicsharing.web.TAPOSTWebServiceAsyncTask;

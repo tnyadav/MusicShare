@@ -1,4 +1,4 @@
-package com.musicsharing.newconnection;
+package com.musicsharing.connections;
 
 import java.util.List;
 
@@ -19,19 +19,18 @@ import android.widget.TextView;
 
 import com.example.musicsharing.R;
 import com.musicsharing.account.UserUtil;
-import com.musicsharing.connections.Connections;
 import com.musicsharing.utils.NotificationUtils;
 import com.musicsharing.web.TAListener;
 import com.musicsharing.web.TAPOSTWebServiceAsyncTask;
 import com.musicsharing.web.WebServiceConstants;
 
-public class NewConnectionFragmentAdapter extends ArrayAdapter<Connections> {
+public class NewConnectionActivitytAdapter extends ArrayAdapter<Connections> {
 
 	private LayoutInflater inflater;
 	public static List<Connections> connectionList;
 	private Activity activity;
 
-	public NewConnectionFragmentAdapter(Activity activity) {
+	public NewConnectionActivitytAdapter(Activity activity) {
 		super(activity, R.layout.item_newconnection, connectionList);
 		this.activity=activity;
 		

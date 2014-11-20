@@ -123,5 +123,9 @@ public class Connections  {
 	public void setUserMobileNumber(String userMobileNumber) {
 	this.userMobileNumber = userMobileNumber;
 	}
-	
+	/*@Override
+	public boolean equals(Object connections) {
+		
+		return this.userId.equalsIgnoreCase(((Connections) connections).getUserId());
+	}*/
 }

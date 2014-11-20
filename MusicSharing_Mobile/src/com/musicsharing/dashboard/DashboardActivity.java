@@ -22,21 +22,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.musicsharing.R;
+import com.musicsharing.FriemdSavedMediaLibrary.SavedMediaLibraryFragment;
+import com.musicsharing.MyMedialibray.LibraryFragment;
 import com.musicsharing.account.LoginActivity;
 import com.musicsharing.account.User;
 import com.musicsharing.account.UserUtil;
 import com.musicsharing.connections.ConnectionFragment;
-import com.musicsharing.medialibray.LibraryFragment;
-import com.musicsharing.mqtt.MQTTConnection;
 import com.musicsharing.mqtt.MQTTConnectionServiceImpl;
-import com.musicsharing.newconnection.NewConnectionFragment;
 import com.musicsharing.web.TAListener;
 import com.musicsharing.web.TAPOSTWebServiceAsyncTask;
 
 public class DashboardActivity extends FragmentActivity implements
 		ActionBar.TabListener {
 	private static final String[] CONTENT = new String[] { "Connections",
-			"Media List", "Add New" };
+			"Media List", "Downloads" };
 
 	SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -115,7 +114,7 @@ public class DashboardActivity extends FragmentActivity implements
 				fragment = new LibraryFragment();
 				break;
 			case 2:
-				fragment = new NewConnectionFragment();
+				fragment = new SavedMediaLibraryFragment();
 				break;
 
 			default:

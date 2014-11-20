@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    
     android:orientation="vertical" >
 
     <LinearLayout
@@ -21,22 +20,12 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/text_normal"
             android:textSize="@dimen/normal_text_font_size" />
-        <Button
-            android:id="@+id/pending"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:textSize="@dimen/small_text_font_size"
-            android:background="@drawable/buttonselector_myaccount"
-            android:textColor="@color/white"
-            android:padding="@dimen/layout_padding_small"
-           
-            android:text="Friend requests" />
-
     </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="0dp"
+        android:layout_weight="1" >
 
         <com.musicsharing.view.StickyListHeadersListView
             android:id="@+id/stickyListViewSpeakersMain"
@@ -71,5 +60,38 @@
             android:textStyle="bold"
             android:visibility="gone" />
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/layout_padding_small" >
+
+        <Button
+            android:id="@+id/pending"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="@drawable/buttonselector_myaccount"
+            android:padding="@dimen/layout_padding_small"
+            android:text="Friend requests"
+            android:textColor="@color/white"
+            android:textSize="@dimen/small_text_font_size" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/getAll"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="@drawable/buttonselector_myaccount"
+            android:padding="@dimen/layout_padding_small"
+            android:text="Friend requests"
+            android:textColor="@color/white"
+            android:textSize="@dimen/small_text_font_size" />
+    </LinearLayout>
 
 </LinearLayout>

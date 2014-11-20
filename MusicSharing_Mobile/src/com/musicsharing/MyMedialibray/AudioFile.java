@@ -1,4 +1,4 @@
-package com.musicsharing.medialibray;
+package com.musicsharing.MyMedialibray;
 
 public class AudioFile {
 	private String id;

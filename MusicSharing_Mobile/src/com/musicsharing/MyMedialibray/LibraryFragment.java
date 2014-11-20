@@ -1,4 +1,4 @@
-package com.musicsharing.medialibray;
+package com.musicsharing.MyMedialibray;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

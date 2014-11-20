@@ -36,7 +36,7 @@ public class MQTTConnectionServiceImpl {
 		Log.e("MQTT", "Befoe calling subscribe");
 		String[] topics = new String[2];
 		topics[0] = TOPIC_SONG_REQUEST + user.getUserId();
-		topics[1] = TOPIC_SONG_RESPONSE + user.getUserId();
+		topics[1] = TOPIC_SONG_RESPONSE + user.getUserId() + "/#";
 		mqttConnection.subscribe(topics, musicCallbackListener);
 		return true;
 	}
