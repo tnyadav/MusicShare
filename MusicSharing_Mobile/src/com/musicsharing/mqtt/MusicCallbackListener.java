@@ -37,6 +37,7 @@ public class MusicCallbackListener implements MQTTCallbackListener {
 				Log.e("MusicCallbackListener : requestedSong : ",
 						requestedSong.toString());
 				String requestedFriendId = requestedSong.getSenderId();
+				String name= requestedSong.getName();
 				String requestedSongPath = requestedSong.getFilePath();
 				Log.e("MusicCallbackListener : requestedFriendId : ",
 						requestedFriendId);
@@ -45,7 +46,7 @@ public class MusicCallbackListener implements MQTTCallbackListener {
 				
 				
 				respondToSongRequest(requestedFriendId, requestedSongPath,
-						requestedFriendId);
+						name);
 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

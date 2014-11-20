@@ -83,6 +83,7 @@ public class FriendLibraryActivity extends StickyListHeadersListViewBaseActivity
 						FriendLibrarySong friendLibrarySong = musicList.get(position);
 						JsonObject jsonObject = new JsonObject();
 						jsonObject.addProperty("senderId", UserUtil.getUserId(activity));
+						jsonObject.addProperty("name", friendName);
 						jsonObject.addProperty("filePath",friendLibrarySong.getFileName());
 						MQTTConnectionServiceImpl.sendTextMessage(MQTTConnectionServiceImpl.TOPIC_SONG_REQUEST+friendId, jsonObject.toString());	
 					}

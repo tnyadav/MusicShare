@@ -8,6 +8,16 @@ public class RequestedSong {
 	
 	@Expose
 	private String filePath;
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Expose
+	private String name;
 
 	public String getSenderId() {
 		return senderId;
