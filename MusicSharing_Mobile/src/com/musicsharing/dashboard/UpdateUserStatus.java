@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.musicsharing.account.UserUtil;
 import com.musicsharing.connections.ConnectionList;
 import com.musicsharing.connections.Connections;
+import com.musicsharing.utils.Utils;
 import com.musicsharing.web.TAListener;
 import com.musicsharing.web.TAWebServiceAsyncTask;
 import com.musicsharing.web.WebServiceConstants;
@@ -33,7 +34,7 @@ public class UpdateUserStatus {
 	public static void update(final Activity activity) {
 
 		String userId = UserUtil.getUserId(activity);
-		if (userId == null) {
+		if (userId == null||!Utils.isNetworkAvailable(activity)) {
 			return;
 		}
 		new TAWebServiceAsyncTask(activity, new TAListener() {

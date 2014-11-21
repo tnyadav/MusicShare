@@ -56,21 +56,22 @@ public class LoginActivity extends Activity {
 
 	private boolean isFbRequestProgress;
 	protected Activity activity;
-	protected Gson gson ;
-	
+	protected Gson gson;
+
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		activity=this;
-		 
-		String user = SharedPreferencesUtil.getPreferences(activity, SharedPreferencesUtil.USER, null);
-		if (user!=null) {
-		     startActivity(new Intent(activity, DashboardActivity.class));
+		activity = this;
+
+		String user = SharedPreferencesUtil.getPreferences(activity,
+				SharedPreferencesUtil.USER, null);
+		if (user != null) {
+			startActivity(new Intent(activity, DashboardActivity.class));
 			finish();
 			return;
 		}
-		gson=new Gson();
+		gson = new Gson();
 		getActionBar().setBackgroundDrawable(
 				getResources().getDrawable(R.color.my_account));
 		getActionBar().setTitle("Login");
@@ -79,7 +80,6 @@ public class LoginActivity extends Activity {
 		bindContents();
 
 	}
-
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -177,107 +177,47 @@ public class LoginActivity extends Activity {
 					NotificationUtils.showNotificationToast(activity,
 							"Please re-enter Username and Password");
 				}
-/*
+
 				TAListener taListener = new TAListener() {
 
 					@Override
-					public void onTaskFailed) {
-
+					public void onTaskFailed(String errorMessage) {
+						NotificationUtils.showNotificationToast(activity,
+								"Server not responds");
 					}
 
 					@Override
-					public void onTaskCompleted(Bundle argBundle) {
+					public void onTaskCompleted(String result) {
 
-						try {
-							Gson gson = new Gson();
-							String responseJSON = argBundle
-									.getString(TAListener.LISTENER_BUNDLE_STRING_1);
-							
-							 * NotificationUtils .showNotificationToast(
-							 * activity, responseJSON);
-							 
-							Login login = gson.fromJson(responseJSON,
-									Login.class);
+						Login login = gson.fromJson(result, Login.class);
 
-							if (null != login) {
-								if (login.getStatusCode().equalsIgnoreCase(
-										"SUCCESS_003")) {
-									User user = new User();
-								
-									user.setUserId(login.getUserId());
-									String userString = gson.toJson(user);
-									SharedPreferencesUtil.savePreferences(
-											activity,
-											SharedPreferencesUtil.USER,
-											userString);
-								 startActivity(new Intent(activity, DashboardActivity.class));
-								 finish();
-								}
-								NotificationUtils.showNotificationToast(
-										activity, login.getMessage());
-								
+						if (null != login) {
+							if (login.getStatusCode().equalsIgnoreCase(
+									"SUCCESS_003")) {
+								User user = new User();
 
-							} else {
-								NotificationUtils.showNotificationToast(
-										activity, "Server not responds");
+								user.setUserId(login.getUserId());
+								String userString = gson.toJson(user);
+								SharedPreferencesUtil.savePreferences(activity,
+										SharedPreferencesUtil.USER, userString);
+								startActivity(new Intent(activity,
+										DashboardActivity.class));
+								finish();
 							}
-						} catch (JsonSyntaxException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							NotificationUtils.showNotificationToast(activity,
+									login.getMessage());
+
+						} else {
 							NotificationUtils.showNotificationToast(activity,
 									"Server not responds");
 						}
 
 					}
-				};*/
-TAListener taListener= new TAListener() {
-	
-	@Override
-	public void onTaskFailed(String errorMessage) {
-		NotificationUtils.showNotificationToast(
-				activity, "Server not responds");
-	}
-	
-	@Override
-	public void onTaskCompleted(String result) {
+				};
 
-	
-			
-			 
-			Login login = gson.fromJson(result,
-					Login.class);
-
-			if (null != login) {
-				if (login.getStatusCode().equalsIgnoreCase(
-						"SUCCESS_003")) {
-					User user = new User();
-				
-					user.setUserId(login.getUserId());
-					String userString = gson.toJson(user);
-					SharedPreferencesUtil.savePreferences(
-							activity,
-							SharedPreferencesUtil.USER,
-							userString);
-				 startActivity(new Intent(activity, DashboardActivity.class));
-				 finish();
-				}
-				NotificationUtils.showNotificationToast(
-						activity, login.getMessage());
-				
-
-			} else {
-				NotificationUtils.showNotificationToast(
-						activity, "Server not responds");
-			}
-		 
-		
-	}
-};
-				
-				 DashboardActivity.registorOrAuthenticate(activity,
-				 jsonObject.toString(), taListener,
-				 WebServiceConstants.AUTHENTICATE);
-				 
+				DashboardActivity.registorOrAuthenticate(activity,
+						jsonObject.toString(), taListener,
+						WebServiceConstants.AUTHENTICATE);
 
 			}
 		});
@@ -294,9 +234,8 @@ TAListener taListener= new TAListener() {
 		buttonLoginSignUp.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-		
+
 				startActivity(new Intent(activity, VerificationActivity.class));
-				
 
 			}
 		});

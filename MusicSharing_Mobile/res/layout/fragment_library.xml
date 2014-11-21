@@ -36,7 +36,7 @@
             android:divider="@color/light_gray_divider"
             android:dividerHeight="0.5dp"
             android:focusable="false"
-            android:listSelector="@android:color/transparent"
+            android:listSelector="@color/text_blue"
             android:scrollbars="none" />
 
         <com.musicsharing.view.Sidebar

@@ -18,19 +18,26 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.musicsharing.R;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.musicsharing.FriemdSavedMediaLibrary.SavedMediaLibraryFragment;
 import com.musicsharing.MyMedialibray.LibraryFragment;
 import com.musicsharing.account.LoginActivity;
 import com.musicsharing.account.User;
 import com.musicsharing.account.UserUtil;
 import com.musicsharing.connections.ConnectionFragment;
+import com.musicsharing.connections.ConnectionList;
 import com.musicsharing.mqtt.MQTTConnectionServiceImpl;
+import com.musicsharing.utils.JSONParser;
+import com.musicsharing.utils.Utils;
 import com.musicsharing.web.TAListener;
 import com.musicsharing.web.TAPOSTWebServiceAsyncTask;
+import com.musicsharing.web.WebServiceConstants;
 
 public class DashboardActivity extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -41,14 +48,16 @@ public class DashboardActivity extends FragmentActivity implements
 
 	ViewPager mViewPager;
 	private Timer timer;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		final ActionBar actionBar = getActionBar();
-		actionBar.setBackgroundDrawable(
-				getResources().getDrawable(R.drawable.top));
-		actionBar.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent))); 
+		actionBar.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.top));
+		actionBar.setIcon(new ColorDrawable(getResources().getColor(
+				android.R.color.transparent)));
 		actionBar.setTitle("");
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
@@ -70,9 +79,35 @@ public class DashboardActivity extends FragmentActivity implements
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
-		
+
 		// connect to mqtt
-		
+		timer = new Timer();
+		timer.scheduleAtFixedRate(new TimerTask() {
+
+			@Override
+			public void run() {
+
+				//UpdateUserStatus.update(DashboardActivity.this);
+				User user = UserUtil.getUser(DashboardActivity.this);
+				if (user != null&&Utils.isNetworkAvailable(DashboardActivity.this)) {
+			
+				try {
+					String responseJson = new JSONParser().getJSONFromUrl(WebServiceConstants.UPDATE_MY_STATUS + user.getUserId());
+					ConnectionList connectionList = new Gson().fromJson(responseJson,
+							ConnectionList.class);
+					UpdateUserStatus.friendList = connectionList.getUserDTO();
+					UpdateUserStatus.performSort();
+					Intent sendIntent = new Intent();
+					sendIntent.setAction("update");
+					sendBroadcast(sendIntent);
+					Log.e("dashboard", "status updated");
+				} catch (JsonSyntaxException e) {
+					Log.e("dashboard", "status not updated");
+					e.printStackTrace();
+				}
+				}
+				}
+		}, 5000, 10000);
 		initializeMQTT();
 	}
 
@@ -137,68 +172,78 @@ public class DashboardActivity extends FragmentActivity implements
 
 		}
 	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.blank, menu);
 		MenuItem bedMenuItem = menu.findItem(R.id.action_user);
-        bedMenuItem.setTitle(UserUtil.getUser(DashboardActivity.this).getName());
-       
+		bedMenuItem
+				.setTitle(UserUtil.getUser(DashboardActivity.this).getName());
+
 		return true;
 	}
-@Override
-public boolean onOptionsItemSelected(MenuItem item) {
-	if (item.getItemId()==R.id.action_user) {
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-				this);
- 
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == R.id.action_user) {
+			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+					this);
+
 			// set title
 			alertDialogBuilder.setTitle(R.string.app_name);
 			// set dialog message
 			alertDialogBuilder
-				.setMessage("Do you want to Logout ?")
-				.setCancelable(false)
-				.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,int id) {
-						UserUtil.logout(DashboardActivity.this);
-						UpdateUserStatus.friendList=null;
-						startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
-						finish();
-					}
-				  })
-				.setNegativeButton("No",new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,int id) {
-						// if this button is clicked, just close
-						// the dialog box and do nothing
-						dialog.cancel();
-						 try 
-				          {
-				                MediaPlayer  mMediaPlayer=new MediaPlayer();
-								
-				                mMediaPlayer.setDataSource(DashboardActivity.this.getExternalCacheDir()+"music.mp3");
-				                mMediaPlayer.prepare();
-				                mMediaPlayer.start();
-				              
-				          } 
-				          catch (Exception e) {
-				        	  
-				        	  
-				          }
-					}
-				});
- 
-				// create alert dialog
-				AlertDialog alertDialog = alertDialogBuilder.create();
- 
-				// show it
-				alertDialog.show();
+					.setMessage("Do you want to Logout ?")
+					.setCancelable(false)
+					.setPositiveButton("Yes",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int id) {
+									UserUtil.logout(DashboardActivity.this);
+									UpdateUserStatus.friendList = null;
+									startActivity(new Intent(
+											DashboardActivity.this,
+											LoginActivity.class));
+									finish();
+								}
+							})
+					.setNegativeButton("No",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int id) {
+									// if this button is clicked, just close
+									// the dialog box and do nothing
+									dialog.cancel();
+									try {
+										MediaPlayer mMediaPlayer = new MediaPlayer();
+
+										mMediaPlayer
+												.setDataSource(DashboardActivity.this
+														.getExternalCacheDir()
+														+ "music.mp3");
+										mMediaPlayer.prepare();
+										mMediaPlayer.start();
+
+									} catch (Exception e) {
+
+									}
+								}
+							});
+
+			// create alert dialog
+			AlertDialog alertDialog = alertDialogBuilder.create();
+
+			// show it
+			alertDialog.show();
+		}
+		return super.onOptionsItemSelected(item);
 	}
-	return super.onOptionsItemSelected(item);
-}
+
 	public static void registorOrAuthenticate(Activity mActivity,
 			String argJSONString, TAListener listener, String url) {
-		new TAPOSTWebServiceAsyncTask(mActivity, true,"Loading", listener, url,
-				argJSONString).executeOnExecutor(
+		new TAPOSTWebServiceAsyncTask(mActivity, true, "Loading", listener,
+				url, argJSONString).executeOnExecutor(
 				AsyncTask.THREAD_POOL_EXECUTOR, (Void[]) null);
 	}
 
@@ -209,33 +254,20 @@ public boolean onOptionsItemSelected(MenuItem item) {
 				R.animator.slide_out_left);
 	}
 
-	@Override
-	public void onResume() {
-		timer = new Timer();
-		timer.scheduleAtFixedRate(new TimerTask() {
-
-			@Override
-			public void run() {
-
-				UpdateUserStatus.update(DashboardActivity.this);
-
-			}
-		}, 5000, 10000);
-		super.onResume();
-	}
 
 	@Override
-	public void onPause() {
+	protected void onDestroy() {
 		if (timer != null) {
 			timer.cancel();
 		}
-		super.onPause();
+		super.onDestroy();
 	}
 
 	private void initializeMQTT() {
 		User user = UserUtil.getUser(DashboardActivity.this);
-		if (user != null) {
-			MQTTConnectionServiceImpl.connectAndSubscribeMQTT(user,DashboardActivity.this);
+		if (user != null&&Utils.isNetworkAvailable(DashboardActivity.this)) {
+			MQTTConnectionServiceImpl.connectAndSubscribeMQTT(user,
+					DashboardActivity.this);
 
 		}
 

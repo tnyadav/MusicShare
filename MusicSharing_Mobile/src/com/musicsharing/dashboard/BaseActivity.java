@@ -26,7 +26,7 @@ public abstract class BaseActivity extends Activity{
 
 	protected Activity activity;
 	protected Gson gson ;
-	private Timer timer;
+	//private Timer timer;
 	
 	@SuppressLint("NewApi") @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +77,7 @@ public abstract class BaseActivity extends Activity{
 	protected abstract void setupUiComponent();
 	   @Override
 	   public void onResume() {
-	   	timer=new Timer();
+	   	/*timer=new Timer();
 	   	timer.scheduleAtFixedRate(new TimerTask() {
 	   		
 	   		@Override
@@ -86,14 +86,14 @@ public abstract class BaseActivity extends Activity{
 	   			UpdateUserStatus.update(activity);
 	   			
 	   		}
-	   	},5000, 10000);
+	   	},5000, 10000);*/
 	   	super.onResume();
 	   }
 	      @Override
 	   public void onPause() {
-	   if (timer!=null) {
+	/*   if (timer!=null) {
 	   	timer.cancel();
-	   }
+	   }*/
 	   	super.onPause();
 	   }
 

@@ -38,7 +38,7 @@
             android:divider="@color/light_gray_divider"
             android:dividerHeight="0.5dp"
             android:focusable="false"
-            android:listSelector="@android:color/transparent"
+            android:listSelector="@color/text_blue"
             android:scrollbars="none" />
 
         <com.musicsharing.view.Sidebar
@@ -89,7 +89,7 @@
             android:layout_height="30dp"
             android:background="@drawable/buttonselector_myaccount"
             android:padding="@dimen/layout_padding_small"
-            android:text="Friend requests"
+            android:text="Find Friends"
             android:textColor="@color/white"
             android:textSize="@dimen/small_text_font_size" />
     </LinearLayout>

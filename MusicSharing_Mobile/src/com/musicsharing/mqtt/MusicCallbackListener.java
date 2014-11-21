@@ -18,6 +18,7 @@ public class MusicCallbackListener implements MQTTCallbackListener {
 
 	private String userId;
 	private Activity activity;
+	public static boolean isDownloading= false; 
 
 	public MusicCallbackListener(String userId, Activity activity) {
 		this.userId = userId;
