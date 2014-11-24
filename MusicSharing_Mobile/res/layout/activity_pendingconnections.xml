@@ -28,7 +28,7 @@
         android:id="@+id/listPendingConnection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:listSelector="@color/text_blue" >
+         android:listSelector="@drawable/taselector" >
     </ListView>
 
 </LinearLayout>

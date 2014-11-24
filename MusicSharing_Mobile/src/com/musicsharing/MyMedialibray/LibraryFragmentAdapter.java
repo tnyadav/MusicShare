@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
@@ -59,9 +58,29 @@ public class LibraryFragmentAdapter extends BaseAdapter implements
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		System.gc();
-    convertView = inflater.inflate(R.layout.item_media, parent, false);
-    TextView tv = (TextView)convertView.findViewById(R.id.tvMedia);
-    tv.setText(musicList.get(position).getDiaplayName());
+		
+		final ViewHolder holder;
+		if (convertView == null) {
+			holder = new ViewHolder();
+			convertView = inflater.inflate(R.layout.item_media, parent, false);
+			
+			
+			
+			holder.tvName = (TextView) convertView
+					.findViewById(R.id.tvMedia);
+/*convertView = inflater.inflate(R.layout.item_connection, parent, false);
+			
+			
+			
+			holder.tvName = (TextView) convertView
+					.findViewById(R.id.tvName);*/
+			
+			convertView.setTag(holder);
+		} else {
+			holder = (ViewHolder) convertView.getTag();
+		}
+
+    holder.tvName.setText(musicList.get(position).getDiaplayName());
     return convertView;
 	}
 

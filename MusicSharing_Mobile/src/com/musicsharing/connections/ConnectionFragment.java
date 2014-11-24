@@ -59,7 +59,7 @@ public class ConnectionFragment extends StickyListHeadersListViewBaseFragment {
 					long arg3) {
 
 				Connections connections = UpdateUserStatus.friendList.get(arg2);
-				if (connections.getUserStatus().equals("online")) {
+				if (connections.getUserId()!=null&& connections.getUserStatus().equals("online")) {
 					FriendLibraryActivity.friendId = connections.getUserId();
 					FriendLibraryActivity.friendName = connections.getName();
 					Intent intent = new Intent(dashboardActivity,

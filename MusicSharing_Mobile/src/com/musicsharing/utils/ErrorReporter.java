@@ -226,13 +226,13 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler {
 		printWriter.close();
 		Report += "**** End of current Report ***";
 		SaveAsFile(Report);
-		// SendErrorMail( Report );
+		//SendErrorMail(CurContext, Report,"Musicshare" );
 		PreviousHandler.uncaughtException(t, e);
 	}
 
-	private void SendErrorMail(Context _context, String ErrorContent) {
+	private void SendErrorMail(Context _context, String ErrorContent,String appName) {
 		Intent sendIntent = new Intent(Intent.ACTION_SEND);
-		String subject = _subject;
+		String subject = appName;
 		String body = "\n\n" + ErrorContent + "\n\n";
 		sendIntent.putExtra(Intent.EXTRA_EMAIL, _recipients);
 		sendIntent.putExtra(Intent.EXTRA_TEXT, body);
@@ -273,7 +273,8 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler {
 		return GetErrorFileList().length > 0;
 	}
 
-	@SuppressLint("SimpleDateFormat") public void SaveLog(Context _context,String appName) {
+	@SuppressLint("SimpleDateFormat") 
+	public void SaveLog(Context _context,String appName) {
 		try {
 			FilePath = _context.getFilesDir().getAbsolutePath();
 			if (bIsThereAnyErrorFile()) {
@@ -301,7 +302,7 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler {
 					curFile.delete();
 				}
 				
-			//	SendErrorMail(_context, WholeErrorText);
+			//	SendErrorMail(_context, WholeErrorText, appName);
 				
 				try {
 					

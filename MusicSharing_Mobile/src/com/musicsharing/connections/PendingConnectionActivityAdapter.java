@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.musicsharing.account.Login;
 import com.musicsharing.account.UserUtil;
 import com.musicsharing.utils.NotificationUtils;
+import com.musicsharing.utils.Utils;
 import com.musicsharing.web.TAListener;
 import com.musicsharing.web.TAPOSTWebServiceAsyncTask;
 import com.musicsharing.web.WebServiceConstants;
@@ -84,7 +85,7 @@ public class PendingConnectionActivityAdapter extends ArrayAdapter<Connections> 
 				public void onClick(View arg0) {
 					String userId=UserUtil.getUserId(activity);
 					String requesterUserId=connections.getUserId();
-			    	if (userId==null) {
+			    	if (userId==null||!Utils.isNetworkAvailable(activity)) {
 						return;
 					}
 			    	JSONObject json = new JSONObject();

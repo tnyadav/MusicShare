@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 <!-- <style name="StyledIndicators" parent="@android:style/android:Theme.Holo.Light.DarkActionBar">-->
         
           <style name="Theme.Example_ics" parent="@android:style/android:Theme.Holo.Light.DarkActionBar">
@@ -22,7 +22,7 @@
       <style name="Theme.Example" parent="@android:style/Theme.Holo.Light">
         <item name="android:actionBarItemBackground">@drawable/selectable_background_example</item>
         <item name="android:popupMenuStyle">@style/PopupMenu.Example</item>
-            <item name="android:actionBarDivider">@null</item>
+        <item name="android:actionBarDivider">@null</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Example</item>
         <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Example</item>
         <item name="android:actionBarTabTextStyle">@style/tabtextcolor</item>
@@ -31,7 +31,7 @@
         <item name="android:actionModeBackground">@drawable/cab_background_top_example</item>
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_example</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Example</item>
-       
+       <item name="android:listSelector">@drawable/taselector</item>
     </style>
     <!--  -->
 <style name="tabtextcolor" parent="@android:style/Widget.Holo.Light.ActionBar.TabText">
