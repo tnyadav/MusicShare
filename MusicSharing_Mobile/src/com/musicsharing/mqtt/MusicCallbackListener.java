@@ -7,8 +7,10 @@ import java.io.IOException;
 import android.app.Activity;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.musicsharing.account.User;
 import com.musicsharing.account.UserUtil;
 import com.musicsharing.connections.RequestedSong;
 import com.musicsharing.dashboard.UpdateUserStatus;
@@ -18,7 +20,7 @@ public class MusicCallbackListener implements MQTTCallbackListener {
 
 	private String userId;
 	private Activity activity;
-	public static boolean isDownloading= false; 
+	public static boolean isDownloading = false;
 
 	public MusicCallbackListener(String userId, Activity activity) {
 		this.userId = userId;
@@ -38,45 +40,65 @@ public class MusicCallbackListener implements MQTTCallbackListener {
 				Log.e("MusicCallbackListener : requestedSong : ",
 						requestedSong.toString());
 				String requestedFriendId = requestedSong.getSenderId();
-				String name= requestedSong.getName();
+				final String requestedFriendName = requestedSong.getName();
 				String requestedSongPath = requestedSong.getFilePath();
 				Log.e("MusicCallbackListener : requestedFriendId : ",
 						requestedFriendId);
 				// Log.e("MusicCallbackListener : requestedSongPath : ",
 				// requestedSongPath);
-				
-				
-				respondToSongRequest(requestedFriendId, requestedSongPath,
-						name);
+				activity.runOnUiThread(new Runnable() {
+
+					@Override
+					public void run() {
+						NotificationUtils.showNotificationToast(activity,
+								"Song request from " + requestedFriendName);
+
+					}
+				});
+                User user=UserUtil.getUser(activity);
+				respondToSongRequest(activity,requestedFriendId,requestedFriendName, requestedSongPath, user.getName());
 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				Log.e("MusicCallbackListener : Exception ", e+"");
+				Log.e("MusicCallbackListener : Exception ", e + "");
 			}
 
 		} else if (topic.contains(MQTTConnectionServiceImpl.TOPIC_SONG_RESPONSE
 				+ userId)) {
-			Log.e("MusicCallbackListener TOPIC_SONG_RESPONSE", topic);
-			
+				
 			String[] strings = topic.split("/");
-			String name = strings[3];
+			final String name = strings[3];
 			String fileName = strings[strings.length - 1];
-			//String friendName = UpdateUserStatus.getFriendName(fileName);
-			//NotificationUtils.showNotificationToast(activity, "Downloading song from "+name+"'s library");
+			activity.runOnUiThread(new Runnable() {
+
+				@Override
+				public void run() {
+					NotificationUtils.showNotificationToast(activity,
+							"Song Coming from " + name);
+
+				}
+			});
 			File sdCard = Environment.getExternalStorageDirectory();
 			File dir = new File(sdCard.getAbsolutePath() + "/MusicShare/"
 					+ name);
 			dir.mkdirs();
-			File music = new File(dir, fileName);
+			final File music = new File(dir, fileName);
 
 			try {
 				FileOutputStream fileOutput = new FileOutputStream(music);
 				fileOutput.write(messageBytes);
 				fileOutput.flush();
 				fileOutput.close();
-				Log.e("MusicCallbackListener TOPIC_SONG_RESPONSE",
-						"file saved in library");
+				activity.runOnUiThread(new Runnable() {
+
+					@Override
+					public void run() {
+						NotificationUtils.showNotificationToast(activity,
+								"Song Coming from " + name +"Received and saved in "+music.getAbsolutePath());
+
+					}
+				});
 			} catch (Exception e) {
 				Log.e("MusicCallbackListener TOPIC_SONG_RESPONSE", "" + e);
 				e.printStackTrace();
@@ -85,18 +107,14 @@ public class MusicCallbackListener implements MQTTCallbackListener {
 		}
 	}
 
-	private void respondToSongRequest(String requestedFriendId,
-			String requestedSongPath, String friendName) {
-		Log.e("MusicCallbackListener", "before Audio File sent on topic"
-				+ MQTTConnectionServiceImpl.TOPIC_SONG_RESPONSE
-				+ requestedFriendId + requestedSongPath);
-		MQTTConnectionServiceImpl.sendAudioFile(
+	private void respondToSongRequest(Activity activity,String requestedFriendId,String requestedFriendName,
+			String requestedSongPath, String myName) {
+		
+		MQTTConnectionServiceImpl.sendAudioFile(activity,
 				MQTTConnectionServiceImpl.TOPIC_SONG_RESPONSE
-						+ requestedFriendId + "/" +friendName+ requestedSongPath,
-				requestedSongPath);
-		Log.e("MusicCallbackListener", "Audio File sent on topic"
-				+ MQTTConnectionServiceImpl.TOPIC_SONG_RESPONSE
-				+ requestedFriendId + requestedSongPath);
+						+ requestedFriendId + "/" + myName
+						+ requestedSongPath, requestedSongPath,requestedFriendName);
+	
 	}
 
 }

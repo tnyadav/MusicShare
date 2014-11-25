@@ -17,7 +17,8 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
-        android:label="@string/app_name" >
+        android:label="@string/app_name" 
+        android:name="com.musicsharing.dashboard.App">
         <activity
             android:name="com.musicsharing.account.LoginActivity"
             android:label="@string/app_name" >
@@ -27,16 +28,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
+         <activity
             android:name="com.musicsharing.dashboard.DashboardActivity" android:theme="@style/Theme.Example" >
-        </activity>
+        </activity> 
         <activity android:name="com.musicsharing.account.RegistrationActivity" android:theme="@style/Theme.Example">
         </activity>
         <activity android:name="com.musicsharing.account.VerificationActivity" android:theme="@style/Theme.Example" >
         </activity>
         <activity android:name="com.musicsharing.connections.PendingConnectionActivity" android:theme="@style/Theme.Example"></activity>
-        <activity android:name="com.musicsharing.medialibray.AddMusicToLibraryActivity" android:theme="@style/Theme.Example"></activity>
+        <activity android:name="com.musicsharing.MyMedialibray.AddMusicToLibraryActivity" android:theme="@style/Theme.Example"></activity>
         <activity android:name="com.musicsharing.connections.FriendLibraryActivity" android:theme="@style/Theme.Example"></activity>
+        <activity android:name="com.musicsharing.connections.NewConnectionActivity" android:theme="@style/Theme.Example"></activity>
+        <activity android:name="com.musicsharing.FriemdSavedMediaLibrary.FriendSavedMediaListActivity" android:theme="@style/Theme.Example"></activity>
+        <activity android:name="com.musicsharing.FriemdSavedMediaLibrary.AudioPlayer" ></activity>
     </application>
 
 </manifest>

@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.musicsharing.account.User;
+import com.musicsharing.utils.NotificationUtils;
 
 public class MQTTConnectionServiceImpl {
 	public static final String TOPIC_SONG_REQUEST = "musicshare/song_request/";
@@ -45,7 +46,7 @@ public class MQTTConnectionServiceImpl {
 		MQTTConnection.getInstance().publishMessage(message, topic);
 	}
 
-	public static void sendAudioFile(String topic, String filePath) {
+	public static void sendAudioFile(final Activity activity,String topic, String filePath,final String friendName) {
 
 		FileInputStream fileInputStream = null;
 		Log.e("MusicCallbackListener", "filePath is "+filePath);
@@ -62,6 +63,14 @@ public class MQTTConnectionServiceImpl {
 			fileInputStream.read(bFile);
 			fileInputStream.close();
 			MQTTConnection.getInstance().publishMessage(bFile, topic);
+			activity.runOnUiThread(new Runnable() {
+				
+				@Override
+				public void run() {
+					NotificationUtils.showNotificationToast(activity, "Song sent to "+friendName);
+					
+				}
+			});
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

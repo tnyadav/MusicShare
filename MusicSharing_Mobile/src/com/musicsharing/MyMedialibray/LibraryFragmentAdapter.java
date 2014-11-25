@@ -24,7 +24,7 @@ public class LibraryFragmentAdapter extends BaseAdapter implements
 
 	public LibraryFragmentAdapter(Activity argActivity, List<AudioFile> au) {
 		 mActivity = argActivity;
-		inflater = (LayoutInflater) mActivity
+		 inflater = (LayoutInflater) mActivity
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		 this.musicList=au;
 		

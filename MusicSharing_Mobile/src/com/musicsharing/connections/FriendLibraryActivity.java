@@ -15,6 +15,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.example.musicsharing.R;
 import com.google.gson.JsonObject;
+import com.musicsharing.account.User;
 import com.musicsharing.account.UserUtil;
 import com.musicsharing.dashboard.StickyListHeadersListViewBaseActivity;
 import com.musicsharing.mqtt.MQTTCallbackListener;
@@ -81,9 +82,10 @@ public class FriendLibraryActivity extends StickyListHeadersListViewBaseActivity
 							int position, long id) {
 						
 						FriendLibrarySong friendLibrarySong = musicList.get(position);
+						User user= UserUtil.getUser(activity);
 						JsonObject jsonObject = new JsonObject();
-						jsonObject.addProperty("senderId", UserUtil.getUserId(activity));
-						jsonObject.addProperty("name", friendName);
+						jsonObject.addProperty("senderId", user.getUserId());
+						jsonObject.addProperty("name", user.getName());
 						jsonObject.addProperty("filePath",friendLibrarySong.getFileName());
 						MQTTConnectionServiceImpl.sendTextMessage(MQTTConnectionServiceImpl.TOPIC_SONG_REQUEST+friendId, jsonObject.toString());	
 					}

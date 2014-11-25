@@ -195,8 +195,9 @@ public class LoginActivity extends Activity {
 							if (login.getStatusCode().equalsIgnoreCase(
 									"SUCCESS_003")) {
 								User user = new User();
-
-								user.setUserId(login.getUserId());
+                                user.setUserId(login.getUserId());
+								user.setName(login.getUserName());
+								
 								String userString = gson.toJson(user);
 								SharedPreferencesUtil.savePreferences(activity,
 										SharedPreferencesUtil.USER, userString);

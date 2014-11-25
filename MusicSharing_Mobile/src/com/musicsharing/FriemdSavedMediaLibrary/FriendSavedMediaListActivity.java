@@ -10,6 +10,7 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -72,9 +73,14 @@ public class FriendSavedMediaListActivity extends
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 
-				Intent intent = new Intent(activity, AudioPlayer.class);
+				/*Intent intent = new Intent(activity, AudioPlayer.class);
 				intent.putExtra(AudioPlayer.AUDIO_FILE_NAME,
 						dir.getAbsolutePath() + "/" + musicList.get(position));
+				startActivity(intent);*/
+				Intent intent = new Intent(Intent.ACTION_VIEW);  
+				//intent.setAction(android.content.Intent.ACTION_VIEW);  
+				File file = new File(dir.getAbsolutePath() + "/" + musicList.get(position));  
+				intent.setDataAndType(Uri.fromFile(file), "audio/*");  
 				startActivity(intent);
 			}
 

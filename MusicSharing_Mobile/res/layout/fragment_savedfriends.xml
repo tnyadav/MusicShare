@@ -13,7 +13,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         
-        android:listSelector="@drawable/taselector"
+        android:listSelector="@drawable/baseselector"
         android:layout_marginTop="1dp" >
 
     </ListView>

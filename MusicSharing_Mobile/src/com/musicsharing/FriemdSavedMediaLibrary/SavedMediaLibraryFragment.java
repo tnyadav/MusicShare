@@ -34,9 +34,9 @@ public class SavedMediaLibraryFragment extends BaseFragment {
 	}
 
 	@Override
-	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+	public void onResume() {
 		// TODO Auto-generated method stub
-		super.onActivityCreated(savedInstanceState);
+		super.onResume();
 		setupUiComponent();
 	}
 

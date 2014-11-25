@@ -11,9 +11,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,10 +24,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 
 import com.example.musicsharing.R;
+import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.musicsharing.account.UserUtil;
@@ -43,22 +47,6 @@ public class LibraryFragment extends StickyListHeadersListViewBaseFragment {
    private List<AudioFile> musicList;
    private Button add;
 
-    private void init_phone_music_grid() {
-    	try {
-			String savedMusicJSON =SharedPreferencesUtil.getPreferences(dashboardActivity, SharedPreferencesUtil.USER_LIBRARY, null);
-			Type type = new TypeToken<List<AudioFile>>() {
-			}.getType();
-			musicList=gson.fromJson(savedMusicJSON, type);
-			if (musicList!=null) {
-				 performSort();
-			}
-			
-		} catch (JsonSyntaxException e) {
-			musicList=new ArrayList<AudioFile>();
-			e.printStackTrace();
-		}
- 
-    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	// TODO Auto-generated method stub
@@ -77,7 +65,8 @@ public class LibraryFragment extends StickyListHeadersListViewBaseFragment {
 public void onActivityCreated( Bundle savedInstanceState) {
 	super.onActivityCreated(savedInstanceState);
 	 setupUiComponent();
-	 add=(Button)view.findViewById(R.id.add);
+	// syncAllSongs();
+	/* add=(Button)view.findViewById(R.id.add);
 	 add.setOnClickListener(new OnClickListener() {
 		
 		@Override
@@ -86,7 +75,7 @@ public void onActivityCreated( Bundle savedInstanceState) {
 	    startActivityForResult(intent, REQUEST_CODE);
 			
 		}
-	});
+	});*/
 	
 	// indexBar.setVisibility(View.VISIBLE);
 }
@@ -101,16 +90,7 @@ public void onResume() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				String path=musicList.get(arg2).getPath();
-				 /* try 
-		          {
-		                MediaPlayer  mMediaPlayer=new MediaPlayer();
-						
-		                mMediaPlayer.setDataSource(path);
-		                mMediaPlayer.prepare();
-		                mMediaPlayer.start();
-		              
-		          } 
-		          catch (Exception e) {}*/
+		
 			}
 		});
 	super.onResume();
@@ -131,7 +111,7 @@ public void onResume() {
 
 
 	}
-
+/*
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -157,54 +137,140 @@ public void onResume() {
 		
 		
 		
-	}
-	private void saveMusicListToServer(List<AudioFile> savedMusicList) {
-		
-		String userId=UserUtil.getUserId(dashboardActivity);
-    	if (userId==null) {
-			return;
-		}
-		JSONArray libArray = new JSONArray();
-		JSONObject json = new JSONObject();
-		try {
-		if (savedMusicList.size()>0) {
-			
-	    		for (int i = 0; i < savedMusicList.size(); i++) {
+	}*/
 
-					AudioFile audioFile = savedMusicList.get(i);
-					JSONObject json1 = new JSONObject();
-					json1.put("name", audioFile.getDiaplayName());
-					json1.put("fileName", audioFile.getPath());
-					libArray.put(i, json1);
-				}
+	private void saveMusicListToServer(final List<AudioFile> savedMusicList,String json) {
 
-		}
 		
-		json.put("userId", userId);
-		json.put("userLibraryDTOList", libArray);
-    	
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-				new TAPOSTWebServiceAsyncTask(dashboardActivity, false, "",new TAListener() {
-					
+
+		new TAPOSTWebServiceAsyncTask(dashboardActivity, false, "",
+				new TAListener() {
+
 					@Override
 					public void onTaskFailed(String errorMessage) {
 						// TODO Auto-generated method stub
-						
+
 					}
-					
+
 					@Override
 					public void onTaskCompleted(String result) {
-						String result1=result;
+						String result1 = result;
 						Log.e("resul of add library", result1);
-						NotificationUtils.showNotificationToast(dashboardActivity, "Library updated");
-						
+						NotificationUtils.showNotificationToast(
+								dashboardActivity, "Library updated");
+						String savedMusicJSON = new Gson()
+								.toJson(savedMusicList);
+						SharedPreferencesUtil.savePreferences(
+								dashboardActivity,
+								SharedPreferencesUtil.USER_LIBRARY,
+								savedMusicJSON);
+
 					}
-				}, WebServiceConstants.ADD_TO_MY_LIBRARY, json.toString()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
+				}, WebServiceConstants.ADD_TO_MY_LIBRARY, json)
+				.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
 						(Void[]) null);
+
+	}
+	
+
+    private void init_phone_music_grid() {
+    	try {
+			String savedMusicJSON =SharedPreferencesUtil.getPreferences(dashboardActivity, SharedPreferencesUtil.USER_LIBRARY, null);
+			Type type = new TypeToken<List<AudioFile>>() {
+			}.getType();
+			musicList=gson.fromJson(savedMusicJSON, type);
+			if (musicList!=null) {
+				 performSort();
+			}
+			
+		} catch (JsonSyntaxException e) {
+			musicList=new ArrayList<AudioFile>();
+			e.printStackTrace();
+		}
+ 
+    }
+	
+	private void syncAllSongs() {
 		
+		new AsyncTask<Void, Void, String>() {
+			 ArrayList<AudioFile> savedMusicList;
+
+			@Override
+			protected String doInBackground(Void... params) {
+				 System.gc();
+				 savedMusicList = new ArrayList<AudioFile>();
+				 try{
+				        ContentResolver contentResolver =dashboardActivity.getContentResolver();
+				         Uri uri = android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+				         musiccursor = contentResolver.query(uri, null, null, null, null);
+				        
+				         if (musiccursor == null) {
+				             // query failed, handle error.
+				         } else if (!musiccursor.moveToFirst()) {
+				             
+							} else {
+								int titleColumn = musiccursor
+										.getColumnIndex(android.provider.MediaStore.Audio.Media.DISPLAY_NAME);
+								int idColumn = musiccursor
+										.getColumnIndex(android.provider.MediaStore.Audio.Media._ID);
+								int path = musiccursor
+										.getColumnIndex(android.provider.MediaStore.Audio.Media.DATA);
+								for (int i = 0; i < musiccursor.getCount(); i++) {
+									String thisTitle = musiccursor.getString(titleColumn);
+									thisTitle = thisTitle.substring(0, 1).toUpperCase()
+											+ thisTitle.substring(1);
+									String strPath = musiccursor.getString(path);
+									musicList.add(new AudioFile(null, thisTitle, strPath));
+									musiccursor.moveToNext();
+								}
+							}
+				         
+				        
+				        }
+				        catch(Exception e){
+				        
+				        }
+				 
+				 
+				    String userId = UserUtil.getUserId(dashboardActivity);
+					
+					JSONArray libArray = new JSONArray();
+					JSONObject json = new JSONObject();
+					try {
+						if (savedMusicList.size() > 0) {
+
+							for (int i = 0; i < savedMusicList.size(); i++) {
+
+								AudioFile audioFile = savedMusicList.get(i);
+								JSONObject json1 = new JSONObject();
+								json1.put("name", audioFile.getDiaplayName());
+								json1.put("fileName", audioFile.getPath());
+								libArray.put(i, json1);
+							}
+
+						}
+
+						json.put("userId", userId);
+						json.put("userLibraryDTOList", libArray);
+
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				return json.toString();
+			}
+			@Override
+			protected void onPostExecute(String result) {
+				super.onPostExecute(result);
+				 saveMusicListToServer(savedMusicList,result);
+				
+			}
+		};
+
+	    
+	 
+	        
+
+	    
 		
 	}
 }
