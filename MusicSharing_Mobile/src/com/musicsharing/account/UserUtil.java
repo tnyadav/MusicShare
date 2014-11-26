@@ -1,6 +1,7 @@
 package com.musicsharing.account;
 
 import android.app.Activity;
+import android.content.Context;
 
 import com.google.gson.Gson;
 import com.musicsharing.utils.SharedPreferencesUtil;
@@ -20,7 +21,7 @@ public class UserUtil {
 	public static void logout(Activity activity) {
 		SharedPreferencesUtil.deletePreferences(activity, SharedPreferencesUtil.USER);
 	}
-	public static User getUser(Activity activity) {
+	public static User getUser(Context activity) {
 		String user = SharedPreferencesUtil.getPreferences(activity, SharedPreferencesUtil.USER, null);
 		if (user!=null) {
 			User user2=new Gson().fromJson(user, User.class);

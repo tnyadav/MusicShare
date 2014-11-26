@@ -32,7 +32,7 @@ public class Utils {
 	 * @return boolean value indicating the presence of Internet connection
 	 *         availability
 	 */
-	public static boolean isNetworkAvailable(Activity argActivity) {
+	public static boolean isNetworkAvailable(Context argActivity) {
 		if (argActivity == null) {
 			return false;
 		}

@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="14"
         android:targetSdkVersion="21" />
 
     <application
@@ -41,6 +41,8 @@
         <activity android:name="com.musicsharing.connections.NewConnectionActivity" android:theme="@style/Theme.Example"></activity>
         <activity android:name="com.musicsharing.FriemdSavedMediaLibrary.FriendSavedMediaListActivity" android:theme="@style/Theme.Example"></activity>
         <activity android:name="com.musicsharing.FriemdSavedMediaLibrary.AudioPlayer" ></activity>
+        <service android:enabled="true" android:name="com.musicsharing.connections.UpdateMyStatus"></service>
+        <receiver android:name="com.musicsharing.connections.AlarmReceiver"></receiver>
     </application>
 
 </manifest>

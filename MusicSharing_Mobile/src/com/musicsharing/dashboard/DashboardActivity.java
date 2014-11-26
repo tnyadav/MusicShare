@@ -1,9 +1,8 @@
 package com.musicsharing.dashboard;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,14 +10,16 @@ import org.json.JSONObject;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.app.PendingIntent;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,13 +28,11 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.musicsharing.R;
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import com.musicsharing.FriemdSavedMediaLibrary.SavedMediaLibraryFragment;
 import com.musicsharing.MyMedialibray.AudioFile;
 import com.musicsharing.MyMedialibray.LibraryFragment;
@@ -41,10 +40,9 @@ import com.musicsharing.account.Login;
 import com.musicsharing.account.LoginActivity;
 import com.musicsharing.account.User;
 import com.musicsharing.account.UserUtil;
+import com.musicsharing.connections.AlarmReceiver;
 import com.musicsharing.connections.ConnectionFragment;
-import com.musicsharing.connections.ConnectionList;
 import com.musicsharing.mqtt.MQTTConnectionServiceImpl;
-import com.musicsharing.utils.JSONParser;
 import com.musicsharing.utils.NotificationUtils;
 import com.musicsharing.utils.SharedPreferencesUtil;
 import com.musicsharing.utils.Utils;
@@ -60,7 +58,7 @@ public class DashboardActivity extends FragmentActivity implements
 	SectionsPagerAdapter mSectionsPagerAdapter;
 
 	ViewPager mViewPager;
-	private Timer timer;
+	//private Timer timer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +67,8 @@ public class DashboardActivity extends FragmentActivity implements
 		final ActionBar actionBar = getActionBar();
 		actionBar.setBackgroundDrawable(getResources().getDrawable(
 				R.drawable.top));
-		/*actionBar.setIcon(new ColorDrawable(getResources().getColor(
-				android.R.color.transparent)));*/
+		actionBar.setIcon(new ColorDrawable(getResources().getColor(
+				android.R.color.transparent)));
 		actionBar.setTitle("");
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
@@ -94,7 +92,7 @@ public class DashboardActivity extends FragmentActivity implements
 		}
 
 		// connect to mqtt
-		timer = new Timer();
+		/*timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
 
 			@Override
@@ -124,7 +122,8 @@ public class DashboardActivity extends FragmentActivity implements
 					}
 				}
 			}
-		}, 5000, 10000);
+		}, 5000, 10000);*/
+		startUpdate();
 		initializeMQTT();
 		syncAllSongs();
 	}
@@ -233,19 +232,7 @@ public class DashboardActivity extends FragmentActivity implements
 									// if this button is clicked, just close
 									// the dialog box and do nothing
 									dialog.cancel();
-									try {
-										MediaPlayer mMediaPlayer = new MediaPlayer();
-
-										mMediaPlayer
-												.setDataSource(DashboardActivity.this
-														.getExternalCacheDir()
-														+ "music.mp3");
-										mMediaPlayer.prepare();
-										mMediaPlayer.start();
-
-									} catch (Exception e) {
-
-									}
+									
 								}
 							});
 
@@ -274,9 +261,10 @@ public class DashboardActivity extends FragmentActivity implements
 
 	@Override
 	protected void onDestroy() {
-		if (timer != null) {
+		/*if (timer != null) {
 			timer.cancel();
-		}
+		}*/
+		stopUpdate();
 		super.onDestroy();
 	}
 
@@ -288,6 +276,33 @@ public class DashboardActivity extends FragmentActivity implements
 
 		}
 
+	}
+
+	private void startUpdate() {
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.SECOND, 1);
+
+		Intent intent = new Intent(DashboardActivity.this,
+				AlarmReceiver.class);
+
+		PendingIntent tracking = PendingIntent.getBroadcast(
+				DashboardActivity.this, 0, intent,
+				PendingIntent.FLAG_CANCEL_CURRENT);
+
+		AlarmManager alarms = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+		alarms.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+				cal.getTimeInMillis(), 10000, tracking);
+
+	}
+
+	private void stopUpdate() {
+		Intent intent = new Intent(DashboardActivity.this,
+				AlarmReceiver.class);
+		PendingIntent tracking = PendingIntent.getBroadcast(
+				DashboardActivity.this, 0, intent,
+				PendingIntent.FLAG_CANCEL_CURRENT);
+		AlarmManager alarms = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+		alarms.cancel(tracking);
 	}
 
 	private void syncAllSongs() {
@@ -362,7 +377,10 @@ public class DashboardActivity extends FragmentActivity implements
 			@Override
 			protected void onPostExecute(String result) {
 				super.onPostExecute(result);
-				saveMusicListToServer(savedMusicList, result);
+				if (Utils.isNetworkAvailable(DashboardActivity.this)) {
+					saveMusicListToServer(savedMusicList, result);
+				}
+				
 
 			}
 		}.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (Void[]) null);
@@ -377,8 +395,7 @@ public class DashboardActivity extends FragmentActivity implements
 
 					@Override
 					public void onTaskFailed(String errorMessage) {
-						// TODO Auto-generated method stub
-
+						syncAllSongs();
 					}
 
 					@Override
