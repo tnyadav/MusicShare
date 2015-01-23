@@ -104,7 +104,7 @@ public class MQTTConnection {
 					byte[] messageBytes = message.getPayload();
 					mqttCallbackListener.processMessage(topic, messageBytes);
 				} catch (Exception e) {
-					Log.e("Error in mqtt", e.toString());
+					Log.e("MQTT", e.toString());
 				}
 			}
 

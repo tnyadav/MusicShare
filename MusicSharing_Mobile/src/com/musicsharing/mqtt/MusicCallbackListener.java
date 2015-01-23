@@ -61,7 +61,16 @@ public class MusicCallbackListener implements MQTTCallbackListener {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				Log.e("MusicCallbackListener : Exception ", e + "");
+				activity.runOnUiThread(new Runnable() {
+
+					@Override
+					public void run() {
+						NotificationUtils.showNotificationToast(activity,
+								"Unable to process Song request");
+
+					}
+				});
+				Log.e("MQTT", "connection failed" + e.getMessage());
 			}
 
 		} else if (topic.contains(MQTTConnectionServiceImpl.TOPIC_SONG_RESPONSE
@@ -100,7 +109,16 @@ public class MusicCallbackListener implements MQTTCallbackListener {
 					}
 				});
 			} catch (Exception e) {
-				Log.e("MusicCallbackListener TOPIC_SONG_RESPONSE", "" + e);
+				activity.runOnUiThread(new Runnable() {
+
+					@Override
+					public void run() {
+						NotificationUtils.showNotificationToast(activity,
+								"Unable to save Song");
+
+					}
+				});
+				Log.e("MQTT", "" + e);
 				e.printStackTrace();
 			}
 

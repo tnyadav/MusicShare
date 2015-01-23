@@ -20,7 +20,8 @@ public class MQTTConnectionServiceImpl {
 		int waitCount = 0;
 
 		do {
-			if (waitCount > 20) {
+			Log.e("mqtt", "Connecting "+waitCount);;
+			if (waitCount > 50) {
 				break;
 			}
 			waitCount++;
@@ -46,7 +47,7 @@ public class MQTTConnectionServiceImpl {
 		MQTTConnection.getInstance().publishMessage(message, topic);
 	}
 
-	public static void sendAudioFile(final Activity activity,String topic, String filePath,final String friendName) {
+	public static void sendAudioFile(final Activity activity,String topic, final String filePath,final String friendName) {
 
 		FileInputStream fileInputStream = null;
 		Log.e("MusicCallbackListener", "filePath is "+filePath);
@@ -67,11 +68,12 @@ public class MQTTConnectionServiceImpl {
 				
 				@Override
 				public void run() {
-					NotificationUtils.showNotificationToast(activity, "Song sent to "+friendName);
+					NotificationUtils.showNotificationToast(activity, "Song sent to "+friendName+" ("+filePath+")");
 					
 				}
 			});
 		} catch (Exception e) {
+			NotificationUtils.showNotificationToast(activity, "Unabe to  sent Song to "+friendName);
 			e.printStackTrace();
 		}
 	}

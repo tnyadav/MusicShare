@@ -22,6 +22,7 @@ import com.musicsharing.mqtt.MQTTCallbackListener;
 import com.musicsharing.mqtt.MQTTConnection;
 import com.musicsharing.mqtt.MQTTConnectionServiceImpl;
 import com.musicsharing.mqtt.MusicCallbackListener;
+import com.musicsharing.utils.NotificationUtils;
 import com.musicsharing.web.TAListener;
 import com.musicsharing.web.TAWebServiceAsyncTask;
 import com.musicsharing.web.WebServiceConstants;
@@ -88,6 +89,7 @@ public class FriendLibraryActivity extends StickyListHeadersListViewBaseActivity
 						jsonObject.addProperty("name", user.getName());
 						jsonObject.addProperty("filePath",friendLibrarySong.getFileName());
 						MQTTConnectionServiceImpl.sendTextMessage(MQTTConnectionServiceImpl.TOPIC_SONG_REQUEST+friendId, jsonObject.toString());	
+					   NotificationUtils.showNotificationToast(activity, "Request send for Song "+friendLibrarySong.getName());
 					}
 
 				});

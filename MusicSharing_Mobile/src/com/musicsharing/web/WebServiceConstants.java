@@ -8,8 +8,9 @@ public class WebServiceConstants {
 	// Server IP
 	//  private static final String BASE_URL="http://jainbooks.share2people.com:8080/JainBooks/rest/jainbook-service/";
 	// Local IP
-	  private static final String BASE_URL="http://ec2-54-69-167-78.us-west-2.compute.amazonaws.com:8080/MusicShare/rest/musicshare-service/";
-	  public static final String MQTT_BROKER_URL="tcp://ec2-54-69-167-78.us-west-2.compute.amazonaws.com:1884";
+	  private static final String BASE_URL="http://ec2-54-187-228-105.us-west-2.compute.amazonaws.com:8080/MusicShare/rest/musicshare-service/";
+	  public static final String MQTT_BROKER_URL="tcp://ec2-54-187-228-105.us-west-2.compute.amazonaws.com:1883";
+	 
 	  public static final String REGISTRATION=BASE_URL+"registerUser";
 	  public static final String AUTHENTICATE=BASE_URL+"authenticate";
 	  public static final String SEND_REGISTRATION_SMS= BASE_URL+"send-registration-sms?mobileNumber=";

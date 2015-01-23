@@ -123,8 +123,16 @@ public class DashboardActivity extends FragmentActivity implements
 				}
 			}
 		}, 5000, 10000);*/
+		
+		new AsyncTask<Void, Void, Void>() {
+
+			@Override
+			protected Void doInBackground(Void... params) {
+				initializeMQTT();
+				return null;
+			}
+		}.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (Void[]) null);
 		startUpdate();
-		initializeMQTT();
 		syncAllSongs();
 	}
 
