@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.widget.Toast;
 
-import com.example.musicsharing.R;
+import com.w3axis.sharehub.R;
 
 /**
  * Utility class to display in-app notifications.

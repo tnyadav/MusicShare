@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
-import com.example.musicsharing.R;
+import com.w3axis.sharehub.R;
 import com.musicsharing.dashboard.UpdateUserStatus;
 import com.musicsharing.view.StickyListHeadersAdapter;
 

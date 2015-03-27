@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.musicsharing.R;
+import com.w3axis.sharehub.R;
 import com.musicsharing.connections.Connections;
 import com.musicsharing.view.Sidebar;
 import com.musicsharing.view.StickyListHeadersListView;

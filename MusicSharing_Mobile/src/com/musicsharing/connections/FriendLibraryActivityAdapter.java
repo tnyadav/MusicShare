@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
-import com.example.musicsharing.R;
+import com.w3axis.sharehub.R;
 import com.musicsharing.view.StickyListHeadersAdapter;
 
 public class FriendLibraryActivityAdapter extends BaseAdapter implements

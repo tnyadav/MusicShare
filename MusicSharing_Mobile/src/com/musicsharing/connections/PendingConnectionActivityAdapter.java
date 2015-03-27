@@ -17,7 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.musicsharing.R;
+import com.w3axis.sharehub.R;
 import com.google.gson.Gson;
 import com.musicsharing.account.Login;
 import com.musicsharing.account.UserUtil;

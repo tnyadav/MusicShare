@@ -1,15 +1,16 @@
 package com.musicsharing.web;
 
 public class WebServiceConstants {
-	// old http://ec2-54-191-72-198.us-west-2.compute.amazonaws.com:8080/JainBooks/rest/jainbook-service/
-	//http://ec2-54-68-4-201.us-west-2.compute.amazonaws.com:8080/JainBooks/rest/jainbook-service/	
-	//http://ec2-54-68-180-12.us-west-2.compute.amazonaws.com:8080
+
 	
 	// Server IP
 	//  private static final String BASE_URL="http://jainbooks.share2people.com:8080/JainBooks/rest/jainbook-service/";
 	// Local IP
-	  private static final String BASE_URL="http://ec2-54-187-228-105.us-west-2.compute.amazonaws.com:8080/MusicShare/rest/musicshare-service/";
-	  public static final String MQTT_BROKER_URL="tcp://ec2-54-187-228-105.us-west-2.compute.amazonaws.com:1883";
+	/*  private static final String BASE_URL="http://ec2-54-187-228-105.us-west-2.compute.amazonaws.com:8080/MusicShare/rest/musicshare-service/";
+	  public static final String MQTT_BROKER_URL="tcp://ec2-54-187-228-105.us-west-2.compute.amazonaws.com:1883";*/
+	
+	  private static final String BASE_URL="http://ec2-52-74-50-6.ap-southeast-1.compute.amazonaws.com:8080/MusicShare/rest/musicshare-service/";
+	  public static final String MQTT_BROKER_URL="tcp://ec2-52-74-50-6.ap-southeast-1.compute.amazonaws.com:1883";
 	 
 	  public static final String REGISTRATION=BASE_URL+"registerUser";
 	  public static final String AUTHENTICATE=BASE_URL+"authenticate";

@@ -20,7 +20,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.example.musicsharing.R;
+import com.w3axis.sharehub.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -72,8 +72,8 @@ public class LoginActivity extends Activity {
 			return;
 		}
 		gson = new Gson();
-		getActionBar().setBackgroundDrawable(
-				getResources().getDrawable(R.color.my_account));
+		/*getActionBar().setBackgroundDrawable(
+				getResources().getDrawable(R.color.my_account));*/
 		getActionBar().setTitle("Login");
 		setContentView(R.layout.activity_login);
 

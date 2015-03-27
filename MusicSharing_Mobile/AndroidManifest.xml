@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.musicsharing"
+    package="com.w3axis.sharehub"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -22,6 +22,7 @@
         android:name="com.musicsharing.dashboard.App">
         <activity
             android:name="com.musicsharing.account.LoginActivity"
+            android:theme="@style/Theme.Example"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

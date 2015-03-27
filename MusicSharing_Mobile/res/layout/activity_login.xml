@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/layout_padding_large"
-            android:background="@color/my_account" />
+            android:background="@drawable/buttonselector_myaccount"/>
 
         <View
             android:layout_width="match_parent"

@@ -12,7 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.musicsharing.R;
+import com.w3axis.sharehub.R;
 
 public class SavedMediaLibraryFragmentAdapter extends ArrayAdapter<String> {
 

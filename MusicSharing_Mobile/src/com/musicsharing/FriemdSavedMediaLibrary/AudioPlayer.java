@@ -12,7 +12,7 @@ import android.view.MotionEvent;
 import android.widget.MediaController;
 import android.widget.TextView;
 
-import com.example.musicsharing.R;
+import com.w3axis.sharehub.R;
 
 public class AudioPlayer extends Activity implements OnPreparedListener, MediaController.MediaPlayerControl{
 	  private static final String TAG = "AudioPlayer";

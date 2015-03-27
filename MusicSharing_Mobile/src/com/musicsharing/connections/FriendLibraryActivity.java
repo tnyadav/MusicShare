@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
-import com.example.musicsharing.R;
+import com.w3axis.sharehub.R;
 import com.google.gson.JsonObject;
 import com.musicsharing.account.User;
 import com.musicsharing.account.UserUtil;

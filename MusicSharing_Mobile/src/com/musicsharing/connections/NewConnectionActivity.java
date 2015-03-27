@@ -16,7 +16,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SearchView;
 
-import com.example.musicsharing.R;
+import com.w3axis.sharehub.R;
 import com.google.gson.Gson;
 import com.musicsharing.account.UserUtil;
 import com.musicsharing.dashboard.BaseActivity;
@@ -28,7 +28,7 @@ import com.musicsharing.web.WebServiceConstants;
 public final class NewConnectionActivity extends BaseActivity {
 	private static final String CONNECTION_LIST = "connection";
 	private ListView listConnection;
-	//private SearchView searchView;
+	// private SearchView searchView;
 	private NewConnectionActivitytAdapter newConnectionActivityAdapter;
 	List<Connections> friendList;
 	List<Connections> PendingFriendList;
@@ -44,7 +44,7 @@ public final class NewConnectionActivity extends BaseActivity {
 
 	@Override
 	protected void setupUiComponent() {
-		//searchView = (SearchView) findViewById(R.id.searchView);
+		// searchView = (SearchView) findViewById(R.id.searchView);
 		listConnection = (ListView) findViewById(R.id.listConnection);
 		listConnection.setOnItemClickListener(new OnItemClickListener() {
 
@@ -113,7 +113,7 @@ public final class NewConnectionActivity extends BaseActivity {
 		List<Connections> connections = connectionList.getUserDTO();
 		for (Connections connections2 : connections) {
 			String mobileNo = connections2.getUserMobileNumber();
-			if (contactExists(mobileNo)) {
+			if (mobileNo != null && contactExists(mobileNo)) {
 				filteredList.add(connections2);
 			}
 		}
@@ -125,15 +125,27 @@ public final class NewConnectionActivity extends BaseActivity {
 		// / number is the phone number
 		Uri lookupUri = Uri.withAppendedPath(PhoneLookup.CONTENT_FILTER_URI,
 				Uri.encode(number));
-		String[] mPhoneNumberProjection = { PhoneLookup._ID,
-				PhoneLookup.NUMBER, PhoneLookup.DISPLAY_NAME };
-		Cursor cur = getContentResolver().query(lookupUri,
-				mPhoneNumberProjection, null, null, null);
+		Cursor cur = null;
 		try {
+			String[] mPhoneNumberProjection = { PhoneLookup._ID /*
+																 * ,
+																 * PhoneLookup.
+																 * NUMBER,
+																 * PhoneLookup
+																 * .DISPLAY_NAME
+																 */};
+
+			cur = NewConnectionActivity.this.getContentResolver().query(
+					lookupUri, mPhoneNumberProjection, null, null, null);
+
 			if (cur.moveToFirst()) {
 				return true;
 			}
+
+		} catch (Exception e) {
+
 		} finally {
+
 			if (cur != null)
 				cur.close();
 		}

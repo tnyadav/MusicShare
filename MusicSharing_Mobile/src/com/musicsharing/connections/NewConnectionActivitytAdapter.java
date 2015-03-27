@@ -17,7 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.musicsharing.R;
+import com.w3axis.sharehub.R;
 import com.musicsharing.account.UserUtil;
 import com.musicsharing.utils.NotificationUtils;
 import com.musicsharing.utils.Utils;

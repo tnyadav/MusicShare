@@ -4,7 +4,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.musicsharing.R;
+import com.w3axis.sharehub.R;
 import com.musicsharing.view.Sidebar;
 import com.musicsharing.view.StickyListHeadersListView;
 
