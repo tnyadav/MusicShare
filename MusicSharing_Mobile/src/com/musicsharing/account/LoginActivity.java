@@ -227,8 +227,8 @@ public class LoginActivity extends Activity {
 				.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						// startActivity(new Intent(activity,
-						// ForgetPasswordActivity.class));
+						 startActivity(new Intent(activity,
+						 ForgetPasswordActivity.class));
 					}
 				});
 

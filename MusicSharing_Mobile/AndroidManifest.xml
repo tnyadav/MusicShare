@@ -45,6 +45,7 @@
         <activity android:name="com.musicsharing.FriemdSavedMediaLibrary.AudioPlayer" ></activity>
         <service android:enabled="true" android:name="com.musicsharing.connections.UpdateMyStatus"></service>
         <receiver android:name="com.musicsharing.connections.AlarmReceiver"></receiver>
+        <activity android:screenOrientation="portrait" android:name="com.musicsharing.account.ForgetPasswordActivity"  android:theme="@style/Theme.Example"></activity>
     </application>
 
 </manifest>

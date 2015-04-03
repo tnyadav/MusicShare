@@ -25,6 +25,7 @@ public class WebServiceConstants {
 	  //post calls
 	  public static final String ADD_CONNECTION= BASE_URL+"add-connection";
 	  public static final String UPDATE_CONNECTION= BASE_URL+"update-connection-status";
+	  public static final String FORGET_PASSWORD=BASE_URL+"forgot-password?mobileNumber=";
 	  
 	  
 	 
